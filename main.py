@@ -21,6 +21,8 @@ class ChatOnConsole(commands.Bot):
     
     async def event_message(self, message: Message) -> None:
         
+        result_chat: str = ""
+
         if self.cfg.get("SHOW_CHATTER_COLOR"):
             chatter_color: str | None = message.author.color
             
@@ -29,12 +31,13 @@ class ChatOnConsole(commands.Bot):
             else:
                 chatter_color = ColorHex("#FFFFF")
             
-            print(f"{chatter_color}{Effect.BOLD}{message.author.name}{Effect.BOLD_OFF}{chatter_color.OFF} : {message.content}")
+            result_chat = f"{chatter_color}{Effect.BOLD}{message.author.name}{Effect.BOLD_OFF}{chatter_color.OFF} : {message.content}"
         
         else:
             # Print without colors (Maybe refactor code to only use one single print)
-            pass
+            result_chat = f"{Effect.BOLD}{message.author.name}{Effect.BOLD_OFF}{Effect.OFF} : {message.content}"
 
+        print(result_chat)
 
 def get_config(file: str) -> dict:
     try:
@@ -49,7 +52,6 @@ if __name__ == "__main__":
 
     load_dotenv()
     ACCESS_TOKEN: str = os.getenv("ACCESS_TOKEN")
-    # CHANNELS = os.getenv("CHANNELS").split(",")
 
     obj = ChatOnConsole(get_config("config.json"))
     obj.run()
@@ -57,4 +59,5 @@ if __name__ == "__main__":
 #TODO: Make this customizable with a json file(Option for timestamps, colors, black and white, notifs or not, etc)
 #TODO: Highlight when mentioned
 #TODO: Add option to ignore specific user messages(like bots)
+#TODO: Add specific symbols or colors to display whether the user is a mod, broadcaster or the vip
 #IDEA : Maybe send out a notification everytime a twitch chat is received
