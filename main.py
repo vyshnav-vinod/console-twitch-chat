@@ -44,7 +44,7 @@ class ChatOnConsole(commands.Bot):
 
 def get_config(file: str) -> dict:
     try:
-        with open("config.json", "r") as f:
+        with open("cfg.json", "r") as f:
             return json.loads(f.read())
     except Exception as e:
         print(f"Error while reading {file} : {e}")
