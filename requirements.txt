@@ -1,0 +1,13 @@
+aiohttp==3.9.5
+aiosignal==1.3.1
+async-timeout==4.0.3
+attrs==23.2.0
+colorist==1.7.2
+frozenlist==1.4.1
+idna==3.7
+iso8601==2.1.0
+multidict==6.0.5
+python-dotenv==1.0.1
+twitchio==2.9.1
+typing_extensions==4.11.0
+yarl==1.9.4

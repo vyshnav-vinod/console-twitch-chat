@@ -84,3 +84,5 @@ if __name__ == "__main__":
 #TODO: Add option to ignore specific user messages(like bots)
 #TODO: Add specific symbols or colors to display whether the user is a mod, broadcaster or the vip
 #IDEA : Maybe send out a notification everytime a twitch chat is received
+
+#IDEA: A complete clone of the twitch chat, with popups ,first time chat alert, colors, etc (Look into TUI libs)
