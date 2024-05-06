@@ -2,6 +2,15 @@
 
 Use this program to get the chat messages of your twitch chat directly to your terminal. Easy to setup and use. Provides some basic configurations like displaying with timestamps and colors.
 
+## Features
+
+- Display messages with color (or not, you can choose)
+- Show timestamp of the message (in UTC only right now)
+- The messages will be underlined if it contains a mention of the channel name
+
+>[!NOTE]
+> More features coming soon. Let me know in the [issues](https://github.com/vyshnav-vinod/console-twitch-chat/issues) what features you prefer to see.
+
 ## Installation and Usage
 
 - Clone the repository

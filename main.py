@@ -27,6 +27,8 @@ class ChatOnConsole(commands.Bot):
         result_chat: dict = {}
         result_chat["chatter"] = message.author.name
         result_chat["content"] = message.content    
+        channel_name = message.channel.name
+        result_chat["mention"] = True if not result_chat["content"].lower().find(channel_name.lower()) == -1 else False
 
         if self.cfg.get("SHOW_CHATTER_COLOR"):
             chatter_color: str | None = message.author.color
@@ -56,19 +58,25 @@ def print_chat(result_chat: dict) -> None:
     color: ColorHex = result_chat["color"]
     chatter: str = result_chat["chatter"]
     message: str = result_chat["content"]
+    mention: bool = result_chat["mention"]
 
     if result_chat["timestamp"]:
         timestamp = result_chat["timestamp"].time().strftime("%H:%M") # It is in UTC
-        print(f"{Effect.BOLD}{color}{chatter} [{timestamp}]{color.OFF}{Effect.BOLD_OFF}{Effect.OFF}: {message}")
+        if not mention:
+            print(f"{Effect.BOLD}{color}{chatter} [{timestamp}]{color.OFF}{Effect.BOLD_OFF}{Effect.OFF}: {message}")
+        else:
+            print(f"{Effect.UNDERLINE}{Effect.BOLD}{color}{chatter} [{timestamp}]{color.OFF}{Effect.OFF}{Effect.UNDERLINE}: {message}{Effect.UNDERLINE_OFF}{Effect.OFF}")
     
     else:
-        print(f"{Effect.BOLD}{color}{chatter}{color.OFF}{Effect.BOLD_OFF}{Effect.OFF}: {message}")
+        if not mention:
+            print(f"{Effect.BOLD}{color}{chatter}{color.OFF}{Effect.BOLD_OFF}{Effect.OFF}: {message}")
+        else:
+            print(f"{Effect.UNDERLINE}{Effect.BOLD}{color}{chatter}{color.OFF}{Effect.OFF}{Effect.UNDERLINE}: {message}{Effect.UNDERLINE_OFF}{Effect.OFF}")
 
 
 def handle_error(e: Exception):
     print("Encountered an error : {e}")
     exit(-1)
-
 
 
 if __name__ == "__main__":
@@ -80,9 +88,8 @@ if __name__ == "__main__":
         obj.run()
     except Exception as e:
         handle_error(e)
-#TODO: Highlight when mentioned
+
 #TODO: Add option to ignore specific user messages(like bots)
 #TODO: Add specific symbols or colors to display whether the user is a mod, broadcaster or the vip
 #IDEA : Maybe send out a notification everytime a twitch chat is received
-
 #IDEA: A complete clone of the twitch chat, with popups ,first time chat alert, colors, etc (Look into TUI libs)
